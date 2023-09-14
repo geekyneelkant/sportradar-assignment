@@ -19,9 +19,16 @@
 - Apache Maven
 
 ### Assumptions
+
+ Collection:
+    
+    * Total number of Matches in the Football World Cup are very limited i.e. approximately 64 
+	 * Hence I chose ArrayList as there would be even less live matches compared to total matches.
+    
+
  Start a match:
  
-	 *  Team Names wouldn't contain country name but not special characters because this is World Cup ScoreBoard Application
+	 *  Team Names would contain country name but not special characters because this is World Cup ScoreBoard Application
 	 *  Team Names wouldn't have super extra long names like exceeding the length of the string variable.
 
 ### Installation

@@ -69,5 +69,47 @@ public class ScoreboardServiceTest {
 		assertEquals(0, scoreboardService.getLiveMatches().size());
 	}
 	
+	
+	/* Tests for finishMatch() */
+	@Test
+	public void finishMatch_ValidParameters_ShouldRemoveTheMatch() {
+		scoreboardService.startMatch("Brazil", "Argentina");
+		scoreboardService.startMatch("Spain", "Portugal");
+		scoreboardService.finishMatch("Spain", "Portugal");
+		assertEquals(1, scoreboardService.getLiveMatches().size());
+	}
+	
+	@Test
+	public void finishMatch_removeNonExistingTeamMatches_ShouldNotRemoveTheMatch() {
+		scoreboardService.startMatch("Spain", "Portugal");
+		scoreboardService.finishMatch("Sweden", "Germany");
+		assertEquals(1, scoreboardService.getLiveMatches().size());
+	}
+	
+	@Test
+	public void finishMatch_removeExistingMatchMultipleTimes_ShouldNotThrowExceptionAndRemoveTheMatch() {
+		scoreboardService.startMatch("Brazil", "Argentina");
+		scoreboardService.startMatch("Spain", "Portugal");
+		scoreboardService.finishMatch("Spain", "Portugal");
+		scoreboardService.finishMatch("Spain", "Portugal");
+		assertEquals(1, scoreboardService.getLiveMatches().size());
+	}
+	
+	@Test
+	public void finishMatch_removeWithEmptyParameters_ShouldNotThrowExceptionAndDoNotRemoveTheMatch() {
+		scoreboardService.startMatch("Brazil", "Argentina");
+		scoreboardService.startMatch("Spain", "Portugal");
+		scoreboardService.finishMatch("", "");
+		assertEquals(2, scoreboardService.getLiveMatches().size());
+	}
+	
+	@Test
+	public void finishMatch_removeWithNullParameters_ShouldNotThrowExceptionAndDoNotRemoveTheMatch() {
+		scoreboardService.startMatch("Brazil", "Argentina");
+		scoreboardService.startMatch("Spain", "Portugal");
+		scoreboardService.finishMatch(null, null);
+		assertEquals(2, scoreboardService.getLiveMatches().size());
+	}
+
 
 }
