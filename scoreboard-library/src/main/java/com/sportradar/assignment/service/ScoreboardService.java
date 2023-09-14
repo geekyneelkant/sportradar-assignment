@@ -36,7 +36,8 @@ public class ScoreboardService {
 	 * Method :finishMatch() 
 	 * 
 	 * The following are the assumptions
-	 *  - Team Names wouldn't contain country name but not special characters because this is World Cup ScoreBoard Application
+	 *  - Team Names would contain country name but not special characters because this is World Cup ScoreBoard 
+	 *  Application
 	 *  - Team Names wouldn't have super extra long names like exceeding the length of the string variable.
 	 *  
 	 */
@@ -48,8 +49,25 @@ public class ScoreboardService {
 	}
 	
 	
-	
-	//TODO: Update Scores
+	/* *
+	 * Method :updateScore() 
+	 * 
+	 * The following are the assumptions
+	 *  - Team Names would contain country name but not special characters because this is World Cup ScoreBoard 
+	 *  Application
+	 *  - Team Names wouldn't have super extra long names like exceeding the length of the string variable.
+	 *  
+	 */
+	public void updateScore(String home, String away, int homeScore, int awayScore) {
+		if (!isTeamNamesNullOrBlank(home, away)) {
+			liveMatches.forEach(liveMatch -> {
+				if (checkLiveMatch(home, away, liveMatch)) {
+					liveMatch.setHomeTeamScore(homeScore);
+					liveMatch.setAwayTeamScore(awayScore);
+				}
+			});
+		}
+	}
 	//TODO: Summary of Live matches
 
 
