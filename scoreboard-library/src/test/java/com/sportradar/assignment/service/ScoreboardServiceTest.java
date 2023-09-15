@@ -1,7 +1,8 @@
 package com.sportradar.assignment.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -135,8 +136,11 @@ public class ScoreboardServiceTest {
 		scoreboardService.startMatch("Brazil", "Argentina");
 		scoreboardService.updateScore("Sweden", "Germany", 1, 2);
 
-		Predicate<Match> isPresent = match -> ScoreboardService.checkLiveMatch("Brazil", "Argentina", match);
-		Optional<Match> liveMatch = scoreboardService.getLiveMatches().stream().filter(isPresent).findFirst();
+		Predicate<Match> isPresent = 
+				match -> ScoreboardService.checkLiveMatch("Brazil", "Argentina", match);
+		Optional<Match> liveMatch = 
+				scoreboardService.getLiveMatches().stream()
+				.filter(isPresent).findFirst();
 
 		assertEquals(1, scoreboardService.getLiveMatches().size());
 		assertEquals(0, liveMatch.get().getHomeTeamScore());
@@ -151,8 +155,11 @@ public class ScoreboardServiceTest {
 		scoreboardService.updateScore("Brazil", "Argentina", 2, 4);
 		scoreboardService.updateScore("Brazil", "Argentina", 4, 5);
 		
-		Predicate<Match> isPresent = match -> ScoreboardService.checkLiveMatch("Brazil", "Argentina", match);
-		Optional<Match> liveMatch = scoreboardService.getLiveMatches().stream().filter(isPresent).findFirst();
+		Predicate<Match> isPresent = 
+				match -> ScoreboardService.checkLiveMatch("Brazil", "Argentina", match);
+		Optional<Match> liveMatch = 
+				scoreboardService.getLiveMatches().stream()
+				.filter(isPresent).findFirst();
 
 		assertEquals(1, scoreboardService.getLiveMatches().size());
 		assertEquals(4, liveMatch.get().getHomeTeamScore());
@@ -160,5 +167,30 @@ public class ScoreboardServiceTest {
 
 	}
 	
+	/* Tests for ScoreBoard Summary */
+	@Test
+	public void getLiveMatchScores_ValidParameters_ShouldShowSummaryOfLiveMatches(){
+		scoreboardService.startMatch("Brazil", "Argentina");
+		scoreboardService.updateScore("Brazil", "Argentina", 1, 2);
+		scoreboardService.finishMatch("Brazil", "Argentina");
+		scoreboardService.startMatch("Spain", "Portugal");
+		scoreboardService.updateScore("Spain", "Portugal", 5, 3);
+		scoreboardService.startMatch("Netherlands", "Germany");
+		scoreboardService.updateScore("Netherlands", "Germany", 3, 2);
+		scoreboardService.finishMatch("Netherlands", "Germany");
+		scoreboardService.startMatch("India", "Pakistan");
+		scoreboardService.updateScore("India", "Pakistan",4, 4);
+		scoreboardService.startMatch("Belgium", "France");
+		scoreboardService.updateScore("Belgium", "France",2, 6);
+		
+		List<Match> expectedLiveMatches = scoreboardService.getLiveMatches();
+		List<Match> liveMatches = scoreboardService.getLiveMatchesSummary();
+		
+		assertEquals(3, liveMatches.size());
+		assertNotNull(expectedLiveMatches);
+		assertTrue(expectedLiveMatches.containsAll(liveMatches));
+		assertTrue(liveMatches.containsAll(expectedLiveMatches));
+		
+	}
 
 }

@@ -24,8 +24,10 @@
  Collection Used:
  
 	* Total number of Matches in the Football World Cup are very limited i.e. approximately 64 
-	* Hence I chose ArrayList because there would be even less live matches compared to total matches.
+	* Chose LinkedList because there would be even less live matches compared to total matches.
 	* Retrieving the element would not be that costly.
+	* Deletion and Adding operations will be more flexible
+	* Helps with the summary sorting based on the recent matches - LinkedList preserves Insertion Order
     
 
  Start a match:
