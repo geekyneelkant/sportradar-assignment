@@ -7,12 +7,15 @@ public class Match {
 	private int awayTeamScore;
 	private String homeTeam;
 	private String awayTeam;
+	private long startTime; // To track the start time
+
 	
 	
 	// constructor for starting the match
 	public Match(String homeTeam, String awayTeam) {
 		this.homeTeamScore = 0;
 		this.awayTeamScore = 0;
+		this.startTime = System.nanoTime();
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 	}
@@ -55,15 +58,19 @@ public class Match {
 		this.awayTeam = awayTeam;
 	}
 
-	@Override
-	public String toString() {
-		return "Match [homeTeamScore=" + homeTeamScore + ", awayTeamScore=" + awayTeamScore + ", homeTeam=" + homeTeam
-				+ ", awayTeam=" + awayTeam + "]";
+	public long getStartTime() {
+		return startTime;
 	}
-	
-	
-	
-	
+
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
+
+	@Override
+	public String toString() {	
+		return homeTeam+" "+homeTeamScore+" - "+awayTeam+" "+awayTeamScore;
+	}
+
 	
 	
 
